@@ -17,10 +17,12 @@
 
 package nfqueue
 
+//go:generate dash -c "cd vendor/libnetfilter_queue-1.0.3 && ./configure --enable-static=yes --enable-shared=no"
+//go:generate dash -c "cd vendor/libnetfilter_queue-1.0.3 && make"
+
 /*
-#cgo pkg-config: libnetfilter_queue
-#cgo CFLAGS: -Wall -Werror -I/usr/include
-#cgo LDFLAGS: -L/usr/lib64/
+#cgo CFLAGS: -Wall -Werror -Ivendor/libnetfilter_queue-1.0.3/include
+#cgo LDFLAGS: -L/usr/lib64/ -Lvendor/libnetfilter_queue-1.0.3/src/.libs -lnetfilter_queue -lmnl -lnfnetlink
 
 #include "nfqueue.h"
 */
@@ -123,7 +125,12 @@ func (q *Queue) Start() error {
 	if q.h = C.nfq_open(); q.h == nil {
 		return errors.New("Error in nfq_open")
 	}
-
+	if C.nfq_unbind_pf(q.h, C.AF_INET) < 0 {
+		return errors.New("error with nfq_unbind")
+	}
+	if C.nfq_bind_pf(q.h, C.AF_INET) < 0 {
+		return errors.New("error with nfq_bind")
+	}
 	// It is not possible to pass the queue as callback data due to error:
 	// runtime error: cgo argument has Go pointer to Go pointer
 	// As a result, we have to pass the queue ID and use the registry to retrieve the queue.
