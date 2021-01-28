@@ -17,13 +17,13 @@
 
 package nfqueue
 
-//go:generate dash -c "cd vendor/libnetfilter_queue-1.0.3 && aclocal && automake"
-//go:generate dash -c "cd vendor/libnetfilter_queue-1.0.3 && ./configure --enable-static=yes --enable-shared=no"
-//go:generate dash -c "cd vendor/libnetfilter_queue-1.0.3 && make"
+//go:generate dash -c "cd vendor/libnetfilter_queue && aclocal && automake"
+//go:generate dash -c "cd vendor/libnetfilter_queue && ./configure --enable-static=yes --enable-shared=no"
+//go:generate dash -c "cd vendor/libnetfilter_queue && make"
 
 /*
-#cgo CFLAGS: -Wall -Werror -Ivendor/libnetfilter_queue-1.0.3/include
-#cgo LDFLAGS: -L/usr/lib64/ -Lvendor/libnetfilter_queue-1.0.3/src/.libs -lnetfilter_queue -lmnl -lnfnetlink
+#cgo CFLAGS: -Wall -Werror -Ivendor/libnetfilter_queue/include
+#cgo LDFLAGS: -L/usr/lib64/ -Lvendor/libnetfilter_queue/src/.libs -lnetfilter_queue -lmnl -lnfnetlink
 
 #include "nfqueue.h"
 */
