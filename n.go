@@ -17,7 +17,7 @@
 
 package nfqueue
 
-//go:generate dash -c "cd vendor/libnetfilter_queue && aclocal && automake"
+//go:generate dash -c "cd vendor/libnetfilter_queue && ./autogen.sh"
 //go:generate dash -c "cd vendor/libnetfilter_queue && ./configure --enable-static=yes --enable-shared=no"
 //go:generate dash -c "cd vendor/libnetfilter_queue && make"
 
