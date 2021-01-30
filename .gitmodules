@@ -1,3 +1,0 @@
-[submodule "vendor/libnetfilter_queue"]
-	path = vendor/libnetfilter_queue
-	url = https://git.netfilter.org/libnetfilter_queue
